@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="no">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ravn PWA – Tips • Kontakter • SMS • Ring</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <meta name="theme-color" content="#0b0f19">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="icons/icon-192.png" alt="Ravn" onerror="this.style.display='none'">
+      <div>
+        <div class="title">Ravn PWA – Tips en venn & Kommunikasjon</div>
+        <div class="badge"><span class="dot"></span> Installerbar • Offline • WebRTC • SMS</div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h2>Min identitet</h2>
+        <div class="row"><input id="myId" readonly><button id="copyId">Kopier ID</button></div>
+        <div class="row"><textarea id="inviteLink" rows="2" readonly></textarea></div>
+        <div class="row">
+          <button id="copyInvite">Kopier invite</button>
+          <button id="shareInvite">Tips en venn</button>
+          <button id="shareAny">Del install-lenke</button>
+        </div>
+        <p class="small">Invite-lenken inneholder ingen persondata – kun en token.</p>
+      </div>
+
+      <div class="card">
+        <h2>Finn / Inviter / Merk</h2>
+        <div class="row">
+          <input id="phone" placeholder="+47…">
+          <button id="pickContact">Velg kontakt</button>
+        </div>
+        <div class="row">
+          <button id="checkNumber">Sjekk</button>
+          <button id="inviteSMS">Send SMS-invite</button>
+          <button id="markRavn">Marker som Ravn</button>
+        </div>
+        <div id="result" class="row small"></div>
+        <h2 style="margin-top:16px">Lokal oversikt</h2>
+        <div id="registry" class="list"></div>
+      </div>
+
+      <div class="card">
+        <h2>SMS direkte</h2>
+        <div class="row"><input id="smsTo" placeholder="+47…"></div>
+        <div class="row"><textarea id="smsBody" rows="2" placeholder="Skriv SMS-melding…"></textarea></div>
+        <div class="row">
+          <button id="openSmsApp">Åpne SMS-app</button>
+          <button id="sendViaParser">Send via parser (om aktiv)</button>
+        </div>
+        <div class="small">
+          Uten parser åpnes telefonens SMS-app. Med parser sendes automatisk via Termux (http://127.0.0.1:5000/sms).
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Ravn-til-Ravn: Kryptert melding</h2>
+        <div class="small">Serverløs kobling: del OFFER/ANSWER. E2E: ECDH(P-256) → AES-GCM(256).</div>
+        <div class="row">
+          <button id="startDC">Start kobling (OFFER)</button>
+          <button id="acceptOffer">Sett remote OFFER (lag ANSWER)</button>
+          <button id="setAnswer">Sett remote ANSWER</button>
+        </div>
+        <div class="row"><textarea id="sdpOut" rows="3" readonly placeholder="OFFER/ANSWER ut…"></textarea></div>
+        <div class="row"><textarea id="sdpIn" rows="3" placeholder="Lim inn mottatt payload…"></textarea></div>
+        <div class="row"><input id="msg" placeholder="Skriv kryptert melding…"><button id="sendMsg">Send</button></div>
+        <div id="msgs" class="messages"></div>
+        <div id="e2eStatus" class="small"></div>
+      </div>
+
+      <div class="card">
+        <h2>Ring Ravn-bruker (Video/Voice)</h2>
+        <div class="row">
+          <button id="startCall">Start samtale (OFFER)</button>
+          <button id="answerCall">Sett remote OFFER (lag ANSWER)</button>
+          <button id="finalizeCall">Sett remote ANSWER</button>
+        </div>
+        <div class="row"><textarea id="callOut" rows="3" readonly placeholder="Call OFFER/ANSWER ut…"></textarea></div>
+        <div class="row"><textarea id="callIn" rows="3" placeholder="Lim inn mottatt call-payload…"></textarea></div>
+        <div class="row">
+          <video id="localVideo" autoplay playsinline muted style="width:49%;border-radius:10px;"></video>
+          <video id="remoteVideo" autoplay playsinline style="width:49%;border-radius:10px;"></video>
+        </div>
+        <div class="small" id="callLog"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
