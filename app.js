@@ -249,3 +249,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
   $('#answerCall').onclick = answerCall;
   $('#finalizeCall').onclick = finalizeCall;
 });
+function smsInvite(number) {
+  const link = "https://ravnai.github.io/Ravn-pwa/";
+  const message = `Hei! Bli med i Ravn PWA: ${link}`;
+ window.location.href = `sms:${number}?&body=${encodeURIComponent(message)}`;
+}
